@@ -16,7 +16,10 @@ class Admin
      */
     public function handle($request, Closure $next)
     {
-        if(empty($request->session()->get("id"))) return redirect("admin/login");
+        if(empty($request->session()->get("admin"))) {
+            $request->session()->flush();
+            return redirect("admin/login");
+        };
         return $next($request);
     }
 }

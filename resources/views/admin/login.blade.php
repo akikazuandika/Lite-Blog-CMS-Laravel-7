@@ -33,7 +33,7 @@
 
       <form>
         <div class="input-group mb-3">
-          <input id="_email" type="email" class="form-control" placeholder="Email">
+          <input id="_username" type="text" class="form-control" placeholder="Username">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
@@ -76,10 +76,10 @@
   </div>
   <script>
       $('#btnLogin').click(() => {
-        let email = $("#_email").val()
+        let username = $("#_username").val()
         let password = $("#_password").val()
 
-        if(email == "" || password == ""){
+        if(username == "" || password == ""){
             return alert("Error input")
         }else{
             $.ajax({
@@ -89,12 +89,15 @@
                 method : "POST",
                 url : "{{ url('admin/doLogin') }}",
                 data : {
-                    email,
+                    username,
                     password
                 },
                 success : (res) => {
-                    console.log(res);
-
+                    if (res.success == true) {
+                        window.location.href = "{{ url('admin') }}"
+                    }else{
+                        alert("Wrong password")
+                    }
                 }
             })
         }
