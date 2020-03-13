@@ -27,9 +27,7 @@ Route::prefix('admin')->group(function(){
 
     //Loggedin admin
     Route::middleware(['isAdmin'])->group(function(){
-        Route::get('/', function () {
-            echo "Hello admin";
-        });
+        Route::get('/', 'AdminController@index');
 
         Route::get('/logout', 'AdminAuth@doLogout');
     });
