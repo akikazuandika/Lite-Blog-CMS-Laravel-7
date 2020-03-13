@@ -53,4 +53,10 @@ class AdminAuth extends Controller
             ];
         }
     }
+
+    public function doLogout(Request $request)
+    {
+        $request->session()->flush();
+        return redirect("admin/login");
+    }
 }

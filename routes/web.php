@@ -30,5 +30,7 @@ Route::prefix('admin')->group(function(){
         Route::get('/', function () {
             echo "Hello admin";
         });
+
+        Route::get('/logout', 'AdminAuth@doLogout');
     });
 });
