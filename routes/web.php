@@ -25,9 +25,10 @@ Route::prefix('admin')->group(function(){
     //Loggedin admin
     Route::middleware(['isAdmin'])->group(function(){
         Route::get('/', 'AdminController@index');
-
         Route::get('/logout', 'AdminAuth@doLogout');
 
+        //Posts
+        Route::get('/post/create', 'PostController@create');
 
     });
 });
