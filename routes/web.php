@@ -31,5 +31,7 @@ Route::prefix('admin')->group(function(){
         Route::get('/post/create', 'PostController@create');
         Route::post('/post/doCreate', 'PostController@doCreate');
 
+        //Image
+        Route::post('/image/upload', 'ImageController@upload');
     });
 });
