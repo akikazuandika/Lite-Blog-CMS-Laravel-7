@@ -77,7 +77,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="{{ url('admin') }}" class="nav-link active">
+            <a href="{{ url('admin') }}" class="<?php if($title == 'Home'){ echo 'nav-link active';}else{ echo 'nav-link'; } ?>">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
@@ -85,7 +85,7 @@
             </a>
           </li>
           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+            <a href="#" class="<?php if($title == 'Create Post' || $title == 'Posts'){ echo 'nav-link active';}else{ echo 'nav-link'; } ?>">
               <i class="nav-icon far fa-envelope"></i>
               <p>
                 Post
@@ -94,13 +94,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ url('admin/post/create') }}" class="nav-link">
+                <a href="{{ url('admin/post/create') }}" class="<?php if($title == 'Create Post'){ echo 'nav-link active';}else{ echo 'nav-link'; } ?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Create Post</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ url('admin/posts') }}" class="nav-link">
+                <a href="{{ url('admin/posts') }}" class="<?php if($title == 'Posts'){ echo 'nav-link active';}else{ echo 'nav-link'; } ?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>List Post</p>
                 </a>

@@ -9,7 +9,8 @@ class AdminController extends Controller
     public function index()
     {
         $data = [
-            'name' => session('admin.name')
+            'name' => session('admin.name'),
+            'title' => "Home"
         ];
         return view('admin.home', $data);
     }
