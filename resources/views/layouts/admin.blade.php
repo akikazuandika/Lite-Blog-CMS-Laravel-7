@@ -65,7 +65,7 @@
           <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+          <a class="d-block">{{ $name }}</a>
         </div>
       </div>
 
@@ -75,7 +75,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="#" class="nav-link active">
+            <a href="{{ url('admin') }}" class="nav-link active">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
@@ -92,13 +92,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="pages/mailbox/mailbox.html" class="nav-link">
+                <a href="{{ url('admin/post/create') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Create Post</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/mailbox/compose.html" class="nav-link">
+                <a href="{{ url('admin/posts') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>List Post</p>
                 </a>

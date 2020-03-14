@@ -12,6 +12,11 @@ class AdminAuth extends Controller
 
     }
 
+    public function login()
+    {
+        return view('admin.login');
+    }
+
     public function doLogin(Request $request)
     {
         try {

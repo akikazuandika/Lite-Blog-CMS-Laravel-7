@@ -19,10 +19,7 @@ Route::get('/post/{slug}', function ($slug) {
 Route::prefix('admin')->group(function(){
 
     //Unlogged admin
-    Route::get('login', function () {
-        return view('admin.login');
-    });
-
+    Route::get('login', 'AdminAuth@login');
     Route::post('doLogin', 'AdminAuth@doLogin');
 
     //Loggedin admin
@@ -30,5 +27,7 @@ Route::prefix('admin')->group(function(){
         Route::get('/', 'AdminController@index');
 
         Route::get('/logout', 'AdminAuth@doLogout');
+
+
     });
 });
