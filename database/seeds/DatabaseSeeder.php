@@ -12,5 +12,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(DefaultAdmin::class);
+        $this->call(DefaultCategory::class);
+        $this->call(DefaultTags::class);
     }
 }
