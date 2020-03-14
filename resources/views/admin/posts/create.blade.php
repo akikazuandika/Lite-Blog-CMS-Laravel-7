@@ -33,8 +33,7 @@
                     <div class="col col-md-4">
                         <div class="form-group">
                             <label>Category</label>
-                            <select class="form-control select2bs4" style="width: 100%;">
-                              <option class="disabled" selected="selected" disabled>Select Category</option>
+                            <select id="category" class="form-control select2bs4" style="width: 100%;" data-placeholder="Select a category" >
                               <option>Alaska</option>
                               <option>California</option>
                               <option>Delaware</option>
@@ -57,15 +56,15 @@
                         <div class="form-group">
                             <label>Tags</label>
                             <div class="select2-purple">
-                                <select class="select2bs4" multiple="multiple" data-placeholder="Select a State"
+                                <select id="tags" class="select2bs4" multiple="multiple" data-placeholder="Select some tags"
                                     style="width: 100%;">
-                                    <option>Alabama</option>
-                                    <option>Alaska</option>
-                                    <option>California</option>
-                                    <option>Delaware</option>
-                                    <option>Tennessee</option>
-                                    <option>Texas</option>
-                                    <option>Washington</option>
+                                    <option value="1" >Alabama</option>
+                                    <option value="2" >Alaska</option>
+                                    <option value="3" >California</option>
+                                    <option value="4" >Delaware</option>
+                                    <option value="5" >Tennessee</option>
+                                    <option value="6" >Texas</option>
+                                    <option value="7" >Washington</option>
                                 </select>
                             </div>
                         </div>
@@ -77,14 +76,16 @@
                             <label for="inputThumbnail">File input</label>
                             <div class="input-group">
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="inputThumbnail">
+                                    <input onchange="uploadImage()" type="file" class="custom-file-input" id="inputThumbnail" style="cursor: pointer" >
                                     <label class="custom-file-label" for="inputThumbnail">Choose file</label>
-                                </div>
-                                <div class="input-group-append">
-                                    <span class="input-group-text" id="">Upload</span>
+                                    <input type="text" id="imagePath" style="display: none" >
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-5" id="wrapperUploadedImage" style="height: 150px" >
+                        <img src="https://awmaa.com/wp-content/uploads/2017/04/default-image.jpg" style="max-width:100%; max-height:100%" >
                     </div>
                 </div>
                 <div class="mb-3 row">
@@ -127,13 +128,40 @@
         })
     })
 
+    function uploadImage() {
+        let formData = new FormData()
+        formData.append("file", $('input[type=file]')[0].files[0])
+
+        $.ajax({
+            url : "{{ url('admin/image/upload') }}",
+            method : 'POST',
+            data : formData,
+            contentType: false,
+            processData: false,
+            headers : {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success : (res) => {
+                if (res.success == true) {
+                    $("#wrapperUploadedImage").empty()
+                    $("#wrapperUploadedImage").append(`
+                    <img src="${res.url}" style="max-width:100%; max-height:100%; cursor:pointer" onclick="window.open('${res.url}')" >
+                    `)
+                    $("#imagePath").val(res.url)
+                }else{
+                    alert("Failed upload a image")
+                }
+            }
+        })
+    }
+
     function send(publish = false) {
         let title = $("#title").val()
         let slug = $("#slug").val()
-        let thumbnail = "https://via.placeholder.com/1000x400.png"
+        let thumbnail = $("#imagePath").val()
         let content = $("#content").val()
-        let category = 1
-        let tags = ["test", "hello"]
+        let category = $("#category").val()
+        let tags = $("#tags").val()
 
         if (title == "" || title == undefined) {
             return alert("Title Empthy")
@@ -164,6 +192,9 @@
             tags
         }
 
+        return console.log(data);
+
+
         $.ajax({
             url : "{{ url('admin/post/doCreate') }}",
             method : "POST",
@@ -173,7 +204,6 @@
             },
             success : (res) => {
                 console.log(res);
-
             }
         })
 
