@@ -33,15 +33,13 @@
                     <div class="col col-md-4">
                         <div class="form-group">
                             <label>Category</label>
-                            <select id="category" class="form-control select2bs4" style="width: 100%;" data-placeholder="Select a category" >
-                              <option>Alaska</option>
-                              <option>California</option>
-                              <option>Delaware</option>
-                              <option>Tennessee</option>
-                              <option>Texas</option>
-                              <option>Washington</option>
+                            <select id="category" class="form-control select2bs4" style="width: 100%;"
+                                data-placeholder="Select a category">
+                                @foreach ($categories as $item)
+                                    <option>{{ $item->category_name }}</option>
+                                @endforeach
                             </select>
-                          </div>
+                        </div>
                     </div>
                 </div>
                 <div class="row mb-2">
@@ -56,15 +54,11 @@
                         <div class="form-group">
                             <label>Tags</label>
                             <div class="select2-purple">
-                                <select id="tags" class="select2bs4" multiple="multiple" data-placeholder="Select some tags"
-                                    style="width: 100%;">
-                                    <option value="1" >Alabama</option>
-                                    <option value="2" >Alaska</option>
-                                    <option value="3" >California</option>
-                                    <option value="4" >Delaware</option>
-                                    <option value="5" >Tennessee</option>
-                                    <option value="6" >Texas</option>
-                                    <option value="7" >Washington</option>
+                                <select id="tags" class="select2bs4" multiple="multiple"
+                                    data-placeholder="Select some tags" style="width: 100%;">
+                                    @foreach ($tags as $item)
+                                        <option>{{ $item->tag_name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -76,26 +70,29 @@
                             <label for="inputThumbnail">File input</label>
                             <div class="input-group">
                                 <div class="custom-file">
-                                    <input onchange="uploadImage()" type="file" class="custom-file-input" id="inputThumbnail" style="cursor: pointer" >
+                                    <input onchange="uploadImage()" type="file" class="custom-file-input"
+                                        id="inputThumbnail" style="cursor: pointer">
                                     <label class="custom-file-label" for="inputThumbnail">Choose file</label>
-                                    <input type="text" id="imagePath" style="display: none" >
+                                    <input type="text" id="imagePath" style="display: none">
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-1"></div>
-                    <div class="col-md-5" id="wrapperUploadedImage" style="height: 150px" >
-                        <img src="https://awmaa.com/wp-content/uploads/2017/04/default-image.jpg" style="max-width:100%; max-height:100%" >
+                    <div class="col-md-5" id="wrapperUploadedImage" style="height: 150px">
+                        <img src="https://awmaa.com/wp-content/uploads/2017/04/default-image.jpg"
+                            style="max-width:100%; max-height:100%">
                     </div>
                 </div>
                 <div class="mb-3 row">
                     <div class="col-md-12">
                         <textarea id="content" class="textarea" placeholder="Place some text here"
-                        style="width: 100%; height: 400px; font-size: 14px; line-height: 16px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                            style="width: 100%; height: 400px; font-size: 14px; line-height: 16px; border: 1px solid #dddddd; padding: 10px;"></textarea>
                     </div>
                     <div class="col-md-12">
                         <p class="text-sm mb-0">
-                            Editor <a href="https://github.com/bootstrap-wysiwyg/bootstrap3-wysiwyg">Documentation and license information.</a>
+                            Editor <a href="https://github.com/bootstrap-wysiwyg/bootstrap3-wysiwyg">Documentation and
+                                license information.</a>
                         </p>
                     </div>
                 </div>
