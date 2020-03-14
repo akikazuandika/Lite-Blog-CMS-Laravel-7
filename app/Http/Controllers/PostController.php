@@ -14,4 +14,11 @@ class PostController extends Controller
         ];
         return view('admin.posts.create', $data);
     }
+
+    public function doCreate()
+    {
+        return [
+            "success" => true
+        ];
+    }
 }

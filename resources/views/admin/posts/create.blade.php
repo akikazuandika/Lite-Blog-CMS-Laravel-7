@@ -46,7 +46,7 @@
                     </div>
                 </div>
                 <div class="mb-3 col-sm-12">
-                    <textarea class="textarea" placeholder="Place some text here"
+                    <textarea id="content" class="textarea" placeholder="Place some text here"
                         style="width: 100%; height: 400px; font-size: 14px; line-height: 16px; border: 1px solid #dddddd; padding: 10px;"></textarea>
                         <p class="text-sm mb-0">
                             Editor <a href="https://github.com/bootstrap-wysiwyg/bootstrap3-wysiwyg">Documentation and license
@@ -54,8 +54,8 @@
                         </p>
                 </div>
                 <div class="mb-3 col-md-6">
-                    <button id="btnSave" class="btn btn-primary">Save</button>
-                    <button id="btnPublish" class="btn btn-primary">Save & Publish</button>
+                    <button onclick="send()" class="btn btn-primary">Save</button>
+                    <button onclick="send(true)" class="btn btn-primary">Save & Publish</button>
                 </div>
             </div>
         </div>
@@ -73,6 +73,57 @@
         })
     })
 
+    function send(publish = false) {
+        let title = $("#title").val()
+        let slug = $("#slug").val()
+        let thumbnail = "https://via.placeholder.com/1000x400.png"
+        let content = $("#content").val()
+        let category = 1
+        let tags = ["test", "hello"]
+
+        if (title == "" || title == undefined) {
+            return alert("Title Empthy")
+        }
+
+        if (slug == "" || slug == undefined) {
+            return alert("slug Empthy")
+        }
+
+        if (thumbnail == "" || thumbnail == undefined) {
+            return alert("Thumbnail Empthy")
+        }
+
+        if (content == "" || content == undefined) {
+            return alert("Content Empthy")
+        }
+
+        if (category == "" || category == undefined) {
+            return alert("Category Empthy")
+        }
+
+        let data = {
+            title,
+            slug,
+            thumbnail,
+            content,
+            category,
+            tags
+        }
+
+        $.ajax({
+            url : "{{ url('admin/post/doCreate') }}",
+            method : "POST",
+            data,
+            headers : {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success : (res) => {
+                console.log(res);
+
+            }
+        })
+
+    }
 
 </script>
 @endsection

@@ -29,6 +29,7 @@ Route::prefix('admin')->group(function(){
 
         //Posts
         Route::get('/post/create', 'PostController@create');
+        Route::post('/post/doCreate', 'PostController@doCreate');
 
     });
 });

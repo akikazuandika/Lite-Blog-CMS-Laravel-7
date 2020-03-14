@@ -7,6 +7,8 @@
 
   <title> @yield('title') </title>
 
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
   <!-- overlayScrollbars -->
