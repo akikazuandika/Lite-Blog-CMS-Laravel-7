@@ -14,9 +14,16 @@ class DefaultTags extends Seeder
     public function run()
     {
         return DB::table('tags')->insert([
-            'tag_name' => 'corona',
-            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            [
+                'tag_name' => 'corona',
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            ],
+            [
+                'tag_name' => 'awas',
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+            ]
         ]);
     }
 }

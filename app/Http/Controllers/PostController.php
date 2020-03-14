@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\CategoryModel;
 use App\TagModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class PostController extends Controller
 {
@@ -23,8 +25,41 @@ class PostController extends Controller
 
     public function doCreate()
     {
-        return [
-            "success" => true
-        ];
+        DB::beginTransaction();
+
+        try {
+            $postId = DB::table('posts')->insertGetId([
+                "id_category" => request()->category,
+                "title" => request()->title,
+                "slug" => request()->slug,
+                "thumbnail" => request()->thumbnail,
+                "content" => request()->content,
+                "is_public" => request()->publish,
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+            ]);
+            $dataInputTags = [];
+            foreach (request()->tags as $item) {
+                $tempData = [
+                    'id_post' => $postId,
+                    'id_tag' => $item,
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                    'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+                ];
+                array_push($dataInputTags, $tempData);
+            };
+            DB::table('post_tags')->insert($dataInputTags);
+            DB::commit();
+            return [
+                "success" => true,
+                "message" => "Success create post"
+            ];
+        } catch (\Exception $e) {
+            return [
+                "success" => false,
+                "error" => $e
+            ];
+            DB::rollback();
+        }
     }
 }

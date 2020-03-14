@@ -20,6 +20,7 @@ class CreatePostsTable extends Migration
             $table->string("slug");
             $table->string("thumbnail");
             $table->string("content");
+            $table->boolean("is_public");
             $table->timestamps();
         });
     }

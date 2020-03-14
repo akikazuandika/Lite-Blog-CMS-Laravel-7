@@ -1,7 +1,8 @@
 @extends('layouts.admin')
 @section('title', $title)
 
-@section('breadcrumbs')
+@section('breadcrumb')
+<li class="breadcrumb-item"><a href="{{ url('admin') }}">Home</a></li>
 <li class="breadcrumb-item"><a href="{{ url('posts') }}">Posts</a></li>
 <li class="breadcrumb-item active">Create Posts</li>
 @endsection
@@ -15,18 +16,12 @@
     <link rel="stylesheet" href="{{ asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
     <div class="col-md-12">
         <div class="card card-outline card-info">
-            <div class="card-header">
-                <h3 class="card-title">
-                    Create Post
-                </h3>
-            </div>
-            <!-- /.card-header -->
             <div class="card-body pad">
                 <div class="row mb-2">
                     <div class="col col-md-8">
                         <div class="form-group">
                             <label>Title</label>
-                            <input type="text" id="title" class="form-control" placeholder="Enter the title ...">
+                            <input type="text" onchange="changeSlug()" id="title" class="form-control" placeholder="Enter the title ...">
                         </div>
                     </div>
 
@@ -36,7 +31,7 @@
                             <select id="category" class="form-control select2bs4" style="width: 100%;"
                                 data-placeholder="Select a category">
                                 @foreach ($categories as $item)
-                                    <option>{{ $item->category_name }}</option>
+                                    <option value="{{ $item->id }}" >{{ $item->category_name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -46,7 +41,8 @@
                     <div class="col-md-8">
                         <div class="form-group">
                             <label>Url</label>
-                            <input type="text" id="slug" class="form-control" placeholder="Enter the title ...">
+                            <input type="text" onkeyup="showUrl()" id="slug" class="form-control" placeholder="Enter the title ...">
+                            <span id="showUrlWrapper" style="display: none" > Your post available at : {{ url('post') }}/<span id="showSlug" ></span> </span>
                         </div>
                     </div>
 
@@ -57,7 +53,7 @@
                                 <select id="tags" class="select2bs4" multiple="multiple"
                                     data-placeholder="Select some tags" style="width: 100%;">
                                     @foreach ($tags as $item)
-                                        <option>{{ $item->tag_name }}</option>
+                                        <option value="{{ $item->id }}">{{ $item->tag_name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -125,6 +121,24 @@
         })
     })
 
+    $("#slug").blur(() => {
+        if ($("#slug").val() != "") {
+            $("#slug").removeAttr("onchange")
+        }
+    })
+
+    function showUrl() {
+        $("#showUrlWrapper").css("display", "block")
+        $("#showSlug").html($("#slug").val())
+    }
+
+    function changeSlug(){
+        let title = $("#title").val()
+        title = title.replace(/[^A-Z0-9]+/ig, "-")
+        $("#slug").val(title)
+        showUrl()
+    }
+
     function uploadImage() {
         let formData = new FormData()
         formData.append("file", $('input[type=file]')[0].files[0])
@@ -180,17 +194,17 @@
             return alert("Category Empthy")
         }
 
+        publish == false ? publish = 0 : publish = 1;
+
         let data = {
             title,
             slug,
             thumbnail,
             content,
             category,
-            tags
+            tags,
+            publish
         }
-
-        return console.log(data);
-
 
         $.ajax({
             url : "{{ url('admin/post/doCreate') }}",
@@ -200,7 +214,11 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             success : (res) => {
-                console.log(res);
+                if (res.success) {
+                    alert("Success create post")
+                }else{
+                    alert("Failed create post")
+                }
             }
         })
 
