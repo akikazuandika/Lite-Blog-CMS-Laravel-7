@@ -82,4 +82,30 @@ class PostController extends Controller
             DB::rollback();
         }
     }
+
+    public function delete()
+    {
+        $id = request()->input('id');
+        if (!$id) {
+            return [
+                "success" => false,
+                "message" => "invalid data"
+            ];
+        }
+
+        $post = PostModel::find($id);
+        if (!$post) {
+            return [
+                "success" => false,
+                "message" => "post not found"
+            ];
+        }else{
+            $post->delete();
+            return [
+                "success" => true,
+                "message" => "Success delete post"
+            ];
+        }
+
+    }
 }

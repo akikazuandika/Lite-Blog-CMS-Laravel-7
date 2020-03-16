@@ -27,13 +27,13 @@
                     </thead>
                     <tbody>
                         @foreach ($posts as $item)
-                            <tr>
+                            <tr id="{{ "post_" . $item->id }}" >
                                 <td style="width:42%" >
                                     <p>{{ ucwords($item->title) }}</p>
                                     <div>
                                         <a class="text-success" href="{{ url('post') . "/" . $item->id }}">View</a>
                                         <a href="{{ url('admin/post/edit') . "/" . $item->id }}">Edit</a>
-                                        <a class="text-danger" href="{{ url('admin/post/delete') . "/" . $item->id }}">Delete</a>
+                                        <a class="text-danger" style="cursor: pointer" onclick="deletePost('{{$item->id}}')" >Delete</a>
                                     </div>
                                 </td>
                                 <td class="text-center" >{{ $item->category->category_name }}</td>
@@ -89,5 +89,24 @@
         "info" : false
       });
     });
+
+    function deletePost(id) {
+        $.ajax({
+            url : "{{ url('admin/post/delete') }}",
+            method : "POST",
+            data : {
+                id
+            },
+            headers : {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success : (res) => {
+                alert(res.message)
+                if (res.success) {
+                    $("#post_" + id).remove()
+                }
+            }
+        })
+    }
 </script>
 @endsection
