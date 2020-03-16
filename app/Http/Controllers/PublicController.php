@@ -9,8 +9,18 @@ class PublicController extends Controller
 {
     public function home()
     {
+        $perpage = request()->query('perpage', 10);
+        $posts = PostModel::paginate($perpage);
+
+        foreach ($posts as $item) {
+            $category = PostModel::find($item->id)->category;
+            $tags = PostModel::find($item->id)->tags;
+            $item->category = $category;
+            $item->tags = $tags;
+        }
         $data = [
-            'title' => "Home"
+            'title' => "Home",
+            'posts' => $posts
         ];
         return view('public.home', $data);
     }

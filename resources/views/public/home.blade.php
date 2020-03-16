@@ -4,11 +4,14 @@
 @section('content')
     <div class="row">
         <div class="col col-md-8">
-            <div class="item" style="margin : 15px; padding : 10px; background : #efefef" >
-                <img class="col-md-12" style="padding-left: 0px; padding-right: 0px; margin-bottom : 20px" src="https://via.placeholder.com/1000x300" alt="">
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ea quibusdam consequuntur numquam quia blanditiis sed at nam, rem exercitationem. Rerum facilis corporis error odio aut minus perferendis voluptates quos maxime?</p>
-                <a href="{{ url('post/1') }}" >Read More</a>
-            </div>
+            @foreach ($posts as $item)
+                <div class="item" style="margin : 15px; padding : 10px; background : #efefef" >
+                    <img class="col-md-12" style="padding-left: 0px; padding-right: 0px; margin-bottom : 20px; width : 100%; height : 300px" src="{{ $item->thumbnail }}" alt="">
+                    <p>{{ substr(strip_tags($item->content), 0, 21) }}</p>
+
+                    <a href="{{ url('post') . "/". $item->slug }}" >Read More</a>
+                </div>
+            @endforeach
         </div>
         <div class="col col-md-1"></div>
         <div class="col col-md-3">
