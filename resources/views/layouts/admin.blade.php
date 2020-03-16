@@ -84,7 +84,7 @@
               </p>
             </a>
           </li>
-          <li class="nav-item has-treeview">
+          <li class="<?php if($title == 'Create Post' || $title == 'Posts'){ echo 'nav-item has-treeview menu-open';}else{ echo 'nav-item has-treeview'; } ?>">
             <a href="#" class="<?php if($title == 'Create Post' || $title == 'Posts'){ echo 'nav-link active';}else{ echo 'nav-link'; } ?>">
               <i class="nav-icon far fa-envelope"></i>
               <p>
