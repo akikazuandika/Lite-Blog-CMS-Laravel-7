@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\CategoryModel;
+use App\PostModel;
 use App\TagModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -12,9 +13,19 @@ class PostController extends Controller
 {
     public function index()
     {
+        $perpage = request()->query('perpage', 10);
+        $posts = PostModel::paginate($perpage);
+
+        foreach ($posts as $item) {
+            $category = PostModel::find($item->id)->category;
+            $tags = PostModel::find($item->id)->tags;
+            $item->category = $category;
+            $item->tags = $tags;
+        }
         $data = [
             'title' => 'List Post',
-            'name' => session('admin.name')
+            'name' => session('admin.name'),
+            'posts' => $posts
         ];
         return view('admin.posts.list', $data);
     }

@@ -84,8 +84,8 @@
               </p>
             </a>
           </li>
-          <li class="<?php if($title == 'Create Post' || $title == 'Posts'){ echo 'nav-item has-treeview menu-open';}else{ echo 'nav-item has-treeview'; } ?>">
-            <a href="#" class="<?php if($title == 'Create Post' || $title == 'Posts'){ echo 'nav-link active';}else{ echo 'nav-link'; } ?>">
+          <li class="<?php if($title == 'Create Post' || $title == 'List Post'){ echo 'nav-item has-treeview menu-open';}else{ echo 'nav-item has-treeview'; } ?>">
+            <a href="#" class="<?php if($title == 'Create Post' || $title == 'List Post'){ echo 'nav-link active';}else{ echo 'nav-link'; } ?>">
               <i class="nav-icon far fa-envelope"></i>
               <p>
                 Post
@@ -100,7 +100,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ url('admin/posts') }}" class="<?php if($title == 'Posts'){ echo 'nav-link active';}else{ echo 'nav-link'; } ?>">
+                <a href="{{ url('admin/posts') }}" class="<?php if($title == 'List Post'){ echo 'nav-link active';}else{ echo 'nav-link'; } ?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>List Post</p>
                 </a>
