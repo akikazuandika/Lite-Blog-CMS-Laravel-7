@@ -31,7 +31,7 @@
                                 <td style="width:42%" >
                                     <p>{{ ucwords($item->title) }}</p>
                                     <div>
-                                        <a class="text-success" href="{{ url('post') . "/" . $item->id }}">View</a>
+                                        <a class="text-success" href="{{ url('post') . "/" . $item->slug }}">View</a>
                                         <a href="{{ url('admin/post/edit') . "/" . $item->id }}">Edit</a>
                                         <a class="text-danger" style="cursor: pointer" onclick="deletePost('{{$item->id}}')" >Delete</a>
                                     </div>
