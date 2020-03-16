@@ -108,4 +108,28 @@ class PostController extends Controller
         }
 
     }
+
+    public function checkSlug()
+    {
+        $slug = request()->input('slug');
+        if (!$slug) {
+            return [
+                "success" => false,
+                "message" => "invalid data"
+            ];
+        }
+
+        $post = PostModel::where('slug', $slug)->get();
+        if (count($post) == 0) {
+            return [
+                "success" => true,
+                "message" => "slug available"
+            ];
+        }else{
+            return [
+                "success" => false,
+                "message" => "slug exists"
+            ];
+        }
+    }
 }

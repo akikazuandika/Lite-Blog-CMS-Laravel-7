@@ -43,6 +43,7 @@
                             <label>Url</label>
                             <input type="text" onkeyup="showUrl()" id="slug" class="form-control" placeholder="Enter the title ...">
                             <span id="showUrlWrapper" style="display: none" > Your post available at : {{ url('post') }}/<span id="showSlug" ></span> </span>
+                            <span id="showErrorSlug" style="display: none">This slug is not available</span>
                         </div>
                     </div>
 
@@ -94,8 +95,8 @@
                 </div>
                 <div class="row mb-4">
                     <div class="col-md-12">
-                        <button onclick="send()" class="btn btn-primary">Save</button>
-                        <button onclick="send(true)" class="btn btn-primary">Save & Publish</button>
+                        <button onclick="send()" class="btn btn-primary btn-send">Save</button>
+                        <button onclick="send(true)" class="btn btn-primary btn-send">Save & Publish</button>
                     </div>
                 </div>
             </div>
@@ -137,6 +138,33 @@
         title = title.replace(/[^A-Z0-9]+/ig, "-")
         $("#slug").val(title)
         showUrl()
+        checkSlug(title)
+    }
+
+    function checkSlug(slug) {
+        $.ajax({
+            url : "{{ url('admin/post/check-slug') }}",
+            method : "POST",
+            data : {
+                slug
+            },
+            headers : {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success : (res) => {
+                if (res.success) {
+                    $("#showUrlWrapper").css("display", "block")
+                    $("#showErrorSlug").css("display", "none")
+                    $("#slug").attr("class", "form-control is-valid")
+                    $(".btn-send").attr("disabled", false)
+                }else{
+                    $("#showUrlWrapper").css("display", "none")
+                    $("#showErrorSlug").css("display", "block")
+                    $("#slug").attr("class", "form-control is-invalid")
+                    $(".btn-send").attr("disabled", true)
+                }
+            }
+        })
     }
 
     function uploadImage() {
@@ -216,6 +244,7 @@
             success : (res) => {
                 if (res.success) {
                     alert("Success create post")
+                    window.location.href = "{{ url('admin/posts') }}"
                 }else{
                     alert("Failed create post")
                 }

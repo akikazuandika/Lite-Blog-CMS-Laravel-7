@@ -32,6 +32,7 @@ Route::prefix('admin')->group(function(){
         Route::get('/post/create', 'PostController@create');
         Route::post('/post/doCreate', 'PostController@doCreate');
         Route::post('/post/delete', 'PostController@delete');
+        Route::post('/post/check-slug', 'PostController@checkSlug');
 
         //Image
         Route::post('/image/upload', 'ImageController@upload');
