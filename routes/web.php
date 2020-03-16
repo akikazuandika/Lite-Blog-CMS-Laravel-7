@@ -28,6 +28,7 @@ Route::prefix('admin')->group(function(){
         Route::get('/logout', 'AdminAuth@doLogout');
 
         //Posts
+        Route::get('/posts', 'PostController@index');
         Route::get('/post/create', 'PostController@create');
         Route::post('/post/doCreate', 'PostController@doCreate');
 

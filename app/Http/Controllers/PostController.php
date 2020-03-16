@@ -10,6 +10,15 @@ use Carbon\Carbon;
 
 class PostController extends Controller
 {
+    public function index()
+    {
+        $data = [
+            'title' => 'List Post',
+            'name' => session('admin.name')
+        ];
+        return view('admin.posts.list', $data);
+    }
+
     public function create()
     {
         $categories = CategoryModel::get();
