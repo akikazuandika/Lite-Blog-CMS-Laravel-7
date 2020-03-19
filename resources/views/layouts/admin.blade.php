@@ -115,6 +115,14 @@
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{ url('admin/tags') }}" class="<?php if($title == 'List Tag'){ echo 'nav-link active';}else{ echo 'nav-link'; } ?>">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Tag
+              </p>
+            </a>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
