@@ -12,7 +12,6 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = CategoryModel::get();
-        // return $categories;
         $data = [
             'title' => 'List Category',
             'name' => session('admin.name'),

@@ -179,6 +179,7 @@
                 alert(res.message)
                 if (res.success) {
                     $("#category_" + id + " p").html(value)
+                    $('#addCategoryModal').modal('hide')
                 }
             }
         })
