@@ -107,6 +107,14 @@
               </li>
             </ul>
           </li>
+          <li class="nav-item">
+            <a href="{{ url('admin/categories') }}" class="<?php if($title == 'List Category'){ echo 'nav-link active';}else{ echo 'nav-link'; } ?>">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Category
+              </p>
+            </a>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
