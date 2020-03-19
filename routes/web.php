@@ -23,6 +23,12 @@ Route::prefix('admin')->group(function(){
         Route::post('/post/delete', 'PostController@delete');
         Route::post('/post/check-slug', 'PostController@checkSlug');
 
+        //Categories
+        Route::get('/categories', 'CategoryController@index');
+        Route::post('/category/doCreate', 'CategoryController@doCreate');
+        Route::post('/category/delete', 'CategoryController@delete');
+        Route::post('/category/edit', 'CategoryController@edit');
+
         //Image
         Route::post('/image/upload', 'ImageController@upload');
     });
