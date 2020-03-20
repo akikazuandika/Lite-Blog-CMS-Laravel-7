@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'PublicController@home');
 Route::get('/post/{slug}', 'PublicController@single');
+Route::post('/comment/create', 'CommentController@doCreate');
 
 Route::prefix('admin')->group(function(){
 
